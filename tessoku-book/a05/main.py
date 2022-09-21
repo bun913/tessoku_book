@@ -9,6 +9,13 @@ list(combinations(l, 2))
 bit全探索でフラグが立っているかチェックする
 if ((i >> j) & 1)
 """
-from functools import reduce, lru_cache
-from itertools import combinations
-import math
+N, K = list(map(int, input().split()))
+ans = 0
+
+for a in range(1, N + 1):
+    for b in range(1, N + 1):
+        c = K - a - b
+        if c < 1 or c > N:
+            continue
+        ans += 1
+print(ans)
