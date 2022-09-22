@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 """
-Atcoderの問題解く用
-
-全ての組み合わせを列挙する方法
-list(0...8)から2つを抜き出す
-list(combinations(l, 2))
-
-bit全探索でフラグが立っているかチェックする
-if ((i >> j) & 1)
+ザ累積和って感じ
+区間の和を求めれば良いだけ
 """
-from functools import reduce, lru_cache
-from itertools import combinations
-import math
+from itertools import accumulate
+
+N, Q = list(map(int, input().split()))
+A = list(map(int, input().split()))
+S = [0] + list(accumulate(A))
+
+for _ in range(Q):
+    L, R = list(map(int, input().split()))
+    s = S[R] - S[L - 1]
+    print(s)
