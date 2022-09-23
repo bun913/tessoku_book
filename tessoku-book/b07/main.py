@@ -9,6 +9,17 @@ list(combinations(l, 2))
 bit全探索でフラグが立っているかチェックする
 if ((i >> j) & 1)
 """
-from functools import reduce, lru_cache
-from itertools import combinations
-import math
+from itertools import accumulate
+
+T = int(input())
+N = int(input())
+memo = [0 for _ in range(T + 1)]
+
+for _ in range(N):
+    L, R = list(map(int, input().split()))
+    memo[L] += 1
+    memo[R] -= 1
+num_people = list(accumulate(memo))
+
+for i in range(T):
+    print(num_people[i])
