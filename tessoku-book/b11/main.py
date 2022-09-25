@@ -9,6 +9,14 @@ list(combinations(l, 2))
 bit全探索でフラグが立っているかチェックする
 if ((i >> j) & 1)
 """
-from functools import reduce, lru_cache
-from itertools import combinations
-import math
+from bisect import bisect_left
+
+N = int(input())
+A = list(map(int, input().split()))
+AD = sorted(A)
+Q = int(input())
+
+for i in range(Q):
+    X = int(input())
+    ind = bisect_left(AD, X)
+    print(ind)
