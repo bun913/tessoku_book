@@ -1,25 +1,21 @@
 # -*- coding: utf-8 -*-
 """
-尺取り法で考え直してみた
-O(N)で解いてみる
+Python式のdequeの尺取り方を試してみた
+
+2つの整数の組み合わせを左から試す
+Aは小さい順に並んでいるので並び替え不要
 """
+from collections import deque
+
 N, K = list(map(int, input().split()))
 A = list(map(int, input().split()))
+q = deque()
 
 ans = 0
-
-# 一番左から見始める
-l = 0
-r = l + 1
-while l < N:
-    left = A[l]
-    # 左が右に追いついてしまっている場合は右をずらす
-    if l == r:
-        r += 1
-    # 右端を行けるまで右にずらす
-    while r < N and A[r] - left <= K:
-        ans += r - l
-        r += 1
-    else:
-        l += 1
+for a in A:
+    q.append(a)
+    while not (a - q[0]) <= K:
+        rm = q.popleft()
+    lq = len(q)
+    ans += lq - 1
 print(ans)
