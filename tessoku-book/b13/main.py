@@ -1,14 +1,21 @@
 # -*- coding: utf-8 -*-
 """
-Atcoderの問題解く用
-
-全ての組み合わせを列挙する方法
-list(0...8)から2つを抜き出す
-list(combinations(l, 2))
-
-bit全探索でフラグが立っているかチェックする
-if ((i >> j) & 1)
+Nが100000なのでbit全探索は無理
+dequeを使った実装で素直にtotalを足したり引いたりすれば累積和も不要
 """
-from functools import reduce, lru_cache
-from itertools import combinations
-import math
+from collections import deque
+
+N, K = list(map(int, input().split()))
+A = list(map(int, input().split()))
+q = deque()
+
+ans = 0
+total = 0
+for a in A:
+    q.append(a)
+    total += a
+    while q and total > K:
+        rm = q.popleft()
+        total -= rm
+    ans += len(q)
+print(ans)
