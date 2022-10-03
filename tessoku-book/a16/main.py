@@ -1,14 +1,20 @@
 # -*- coding: utf-8 -*-
 """
-Atcoderの問題解く用
-
-全ての組み合わせを列挙する方法
-list(0...8)から2つを抜き出す
-list(combinations(l, 2))
-
-bit全探索でフラグが立っているかチェックする
-if ((i >> j) & 1)
+典型定期なDP
+答え・解説を見ずにチャレンジ
 """
-from functools import reduce, lru_cache
-from itertools import combinations
-import math
+N = int(input())
+# 長さを合わせてDPしやすくする
+A = [0] + list(map(int, input().split()))
+B = [0, 0] + list(map(int, input().split()))
+DP = [0 for _ in range(N)]
+
+for i in range(1, N):
+    if i == 1:
+        DP[i] = A[i]
+        continue
+    a = A[i]
+    b = B[i]
+    optimized = min(DP[i - 1] + a, DP[i - 2] + b)
+    DP[i] = optimized
+print(DP[-1])
