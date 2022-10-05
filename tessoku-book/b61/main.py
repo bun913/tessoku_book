@@ -9,6 +9,17 @@ list(combinations(l, 2))
 bit全探索でフラグが立っているかチェックする
 if ((i >> j) & 1)
 """
-from functools import reduce, lru_cache
-from itertools import combinations
-import math
+from collections import Counter, defaultdict
+
+N, M = list(map(int, input().split()))
+graph = [[] for i in range(N + 1)]
+ans = defaultdict(int)
+for _ in range(M):
+    a, b = list(map(int, input().split()))
+    graph[a].append(b)
+    graph[b].append(a)
+    ans[a] += 1
+    ans[b] += 1
+
+c = Counter(ans)
+print(c.most_common()[0][0])

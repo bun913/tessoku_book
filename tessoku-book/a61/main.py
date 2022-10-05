@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-Atcoderの問題解く用
-
-全ての組み合わせを列挙する方法
-list(0...8)から2つを抜き出す
-list(combinations(l, 2))
-
-bit全探索でフラグが立っているかチェックする
-if ((i >> j) & 1)
 """
-from functools import reduce, lru_cache
-from itertools import combinations
-import math
+N, M = list(map(int, input().split()))
+g = [[] for _ in range(N + 1)]
+for _ in range(M):
+    a, b = list(map(int, input().split()))
+    g[a].append(b)
+    g[b].append(a)
+
+for k, s in enumerate(g[1:]):
+    to_s = list(map(str, sorted(s)))
+    f = "{" + ", ".join(to_s) + "}"
+    print("{}: {}".format(k + 1, f))
