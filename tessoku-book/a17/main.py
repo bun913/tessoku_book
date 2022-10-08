@@ -1,14 +1,30 @@
 # -*- coding: utf-8 -*-
 """
-Atcoderの問題解く用
-
-全ての組み合わせを列挙する方法
-list(0...8)から2つを抜き出す
-list(combinations(l, 2))
-
-bit全探索でフラグが立っているかチェックする
-if ((i >> j) & 1)
+DP経路の復元
 """
-from functools import reduce, lru_cache
-from itertools import combinations
-import math
+from collections import deque
+
+N = int(input())
+A = list(map(int, input().split()))
+B = list(map(int, input().split()))
+DP = [0 for _ in range(N)]
+DP[1] = A[0]
+DP[2] = min(DP[0] + A[1], B[0])
+
+# DPによる最短コストの算出
+for i in range(2, N):
+    a = A[i - 1] + DP[i - 1]
+    b = B[i - 2] + DP[i - 2]
+    DP[i] = min(a, b)
+# DPのコスト値から最短経路を算出
+p = N - 1
+ans = []
+while p >= -1:
+    n = p - 1
+    ans.append(p + 1)
+    if DP[p] == DP[p - 1] + A[n]:
+        p -= 1
+        continue
+    p -= 2
+print(len(ans))
+print(*ans[::-1])
